@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="This page is a work in progress. Something special is on the way."
+    />
+    <meta name="theme-color" content="#11131b" />
+    <title>Something Special Is on the Way</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family:
+          "Avenir Next", Avenir, "Segoe UI", sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        --ink: #f5f2ee;
+        --muted: #aaa9b4;
+        --coral: #ff9a83;
+        --lavender: #b7a5ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-width: 320px;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden;
+        background:
+          radial-gradient(ellipse at 75% 42%, #27243b 0, transparent 38%),
+          radial-gradient(ellipse at 5% 90%, #302225 0, transparent 35%),
+          #11131b;
+        color: var(--ink);
+      }
+
+      body::before {
+        position: fixed;
+        z-index: -1;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.18' filter='url(%23n)'/%3E%3C/svg%3E");
+        content: "";
+        opacity: 0.13;
+        pointer-events: none;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page-shell {
+        width: min(1200px, calc(100% - 64px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        display: flex;
+        min-height: 98px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .wordmark {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        font-size: 0.88rem;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+      }
+
+      .wordmark-mark {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border: 1px solid rgb(255 255 255 / 16%);
+        border-radius: 12px;
+        background: linear-gradient(145deg, #ffae91, #d889a8 52%, #8a82d6);
+        color: #201721;
+        font-size: 1rem;
+        box-shadow: 0 5px 24px rgb(224 144 168 / 22%);
+      }
+
+      .top-link {
+        display: inline-flex;
+        min-height: 42px;
+        align-items: center;
+        gap: 9px;
+        padding: 0 15px;
+        border: 1px solid rgb(255 255 255 / 13%);
+        border-radius: 999px;
+        color: #e4e0e6;
+        font-size: 0.8rem;
+        transition:
+          background 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .top-link:hover {
+        border-color: rgb(255 255 255 / 30%);
+        background: rgb(255 255 255 / 6%);
+      }
+
+      .top-link svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      main {
+        display: grid;
+        min-height: calc(100svh - 98px);
+        grid-template-columns: 0.92fr 1.08fr;
+        align-items: center;
+        gap: 2rem;
+        padding: 30px 0 92px;
+      }
+
+      .intro {
+        position: relative;
+        z-index: 1;
+        padding: 0 0 28px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 26px;
+        color: #d3cbd2;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 25px;
+        height: 1px;
+        background: var(--coral);
+        content: "";
+      }
+
+      h1 {
+        max-width: 620px;
+        margin: 0;
+        font-size: clamp(3.4rem, 7.3vw, 6.7rem);
+        font-weight: 550;
+        letter-spacing: -0.075em;
+        line-height: 0.98;
+      }
+
+      h1 span {
+        display: block;
+        background: linear-gradient(100deg, #ffb59b 4%, #e8a4c2 48%, #b4a7ff 96%);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .description {
+        max-width: 420px;
+        margin: 27px 0 0;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 13px;
+        margin-top: 35px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 51px;
+        align-items: center;
+        justify-content: center;
+        gap: 11px;
+        padding: 0 20px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        font-size: 0.84rem;
+        font-weight: 650;
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          background 180ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+      }
+
+      .button-primary {
+        background: linear-gradient(105deg, #ffb294, #e99db7 55%, #c1a8f4);
+        color: #211a24;
+        box-shadow: 0 8px 26px rgb(232 157 183 / 20%);
+      }
+
+      .button-primary:hover {
+        box-shadow: 0 12px 32px rgb(232 157 183 / 33%);
+      }
+
+      .button svg {
+        width: 16px;
+        height: 16px;
+        transition: transform 180ms ease;
+      }
+
+      .button-primary:hover svg {
+        transform: translateX(3px);
+      }
+
+      .artwork {
+        position: relative;
+        width: 100%;
+        max-width: 630px;
+        justify-self: end;
+        isolation: isolate;
+      }
+
+      .artwork::before {
+        position: absolute;
+        z-index: -1;
+        inset: 17% 8% 12%;
+        border-radius: 50%;
+        background: #d18ba8;
+        content: "";
+        filter: blur(85px);
+        opacity: 0.19;
+      }
+
+      .artwork svg {
+        display: block;
+        width: 100%;
+        overflow: visible;
+      }
+
+      .orbit {
+        transform-origin: 50% 50%;
+        animation: orbit 32s linear infinite;
+      }
+
+      .float {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .float-delayed {
+        animation: float 7s ease-in-out 1s infinite;
+      }
+
+      .bottom-note {
+        position: fixed;
+        right: max(32px, calc((100vw - 1200px) / 2));
+        bottom: 25px;
+        left: max(32px, calc((100vw - 1200px) / 2));
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #85838f;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .note-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .note-indicator::before {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #a7d6b3;
+        box-shadow: 0 0 12px rgb(167 214 179 / 65%);
+        content: "";
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes orbit {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (min-width: 1500px) {
+        main {
+          min-height: calc(100svh - 110px);
+        }
+      }
+
+      @media (max-width: 800px) {
+        .page-shell {
+          width: min(100% - 44px, 620px);
+        }
+
+        .topbar {
+          min-height: 78px;
+        }
+
+        main {
+          min-height: auto;
+          grid-template-columns: 1fr;
+          gap: 0;
+          padding: 58px 0 95px;
+        }
+
+        .intro {
+          padding-bottom: 0;
+        }
+
+        .eyebrow {
+          margin-bottom: 20px;
+        }
+
+        h1 {
+          max-width: 570px;
+          font-size: clamp(3.5rem, 11vw, 5.7rem);
+        }
+
+        .description {
+          margin-top: 20px;
+        }
+
+        .actions {
+          margin-top: 27px;
+        }
+
+        .artwork {
+          width: min(100%, 520px);
+          margin: -4px auto 0;
+          justify-self: center;
+        }
+
+        .bottom-note {
+          position: absolute;
+          right: 22px;
+          bottom: 18px;
+          left: 22px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .page-shell {
+          width: calc(100% - 36px);
+        }
+
+        .top-link {
+          min-height: 39px;
+          padding: 0 12px;
+        }
+
+        main {
+          padding-top: 43px;
+        }
+
+        .description {
+          max-width: 340px;
+          font-size: 0.93rem;
+        }
+
+        .actions {
+          gap: 4px;
+        }
+
+        .button {
+          min-height: 47px;
+          padding: 0 15px;
+        }
+
+        .bottom-note {
+          font-size: 0.61rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="wordmark" href="#" aria-label="Home">
+          <span class="wordmark-mark" aria-hidden="true">✳</span>
+          <span>A LITTLE CORNER</span>
+        </a>
+        <a class="top-link" href="#the-view">
+          Explore
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M3.3 12.7 12.5 3.5M4 3.5h8.5V12"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </header>
+
+      <main>
+        <section class="intro" aria-labelledby="welcome-title">
+          <p class="eyebrow">A little work in progress</p>
+          <h1 id="welcome-title">
+            Something
+            <span>special is on the way.</span>
+          </h1>
+          <p class="description">
+            This page is still taking shape. I’m putting the finishing touches
+            on something special, so check back soon to see what’s on the way.
+          </p>
+          <div class="actions">
+            <a class="button button-primary" href="#the-view">
+              Take a look around
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path
+                  d="M3 8h10m-4-4 4 4-4 4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+          </div>
+        </section>
+
+        <div class="artwork" id="the-view">
+          <svg
+            viewBox="0 0 620 560"
+            role="img"
+            aria-labelledby="art-title art-description"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title id="art-title">A little world of possibility</title>
+            <desc id="art-description">
+              A glowing peach sun rises over dreamy purple hills, surrounded by
+              stars and a sweeping orbit.
+            </desc>
+            <defs>
+              <linearGradient id="sky" x1="120" y1="66" x2="482" y2="481">
+                <stop stop-color="#f8ae99" stop-opacity=".2" />
+                <stop offset=".52" stop-color="#a78be2" stop-opacity=".12" />
+                <stop offset="1" stop-color="#6f86c8" stop-opacity=".07" />
+              </linearGradient>
+              <linearGradient id="sun" x1="218" y1="136" x2="386" y2="330">
+                <stop stop-color="#ffe2b7" />
+                <stop offset=".5" stop-color="#ffad9a" />
+                <stop offset="1" stop-color="#e881a7" />
+              </linearGradient>
+              <linearGradient id="hill-back" x1="100" y1="322" x2="482" y2="489">
+                <stop stop-color="#a48cc9" />
+                <stop offset="1" stop-color="#6d70a5" />
+              </linearGradient>
+              <linearGradient id="hill-front" x1="164" y1="377" x2="442" y2="513">
+                <stop stop-color="#464564" />
+                <stop offset="1" stop-color="#25283f" />
+              </linearGradient>
+              <radialGradient id="sun-glow">
+                <stop stop-color="#ffb799" stop-opacity=".34" />
+                <stop offset="1" stop-color="#ffb799" stop-opacity="0" />
+              </radialGradient>
+              <filter id="blur" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="24" />
+              </filter>
+            </defs>
+
+            <circle cx="310" cy="275" r="217" fill="url(#sky)" />
+            <circle cx="310" cy="276" r="161" fill="url(#sun-glow)" filter="url(#blur)" />
+
+            <g fill="#f3e7df">
+              <circle cx="148" cy="166" r="2" opacity=".8" />
+              <circle cx="462" cy="171" r="2.5" opacity=".8" />
+              <circle cx="415" cy="114" r="1.8" opacity=".65" />
+              <circle cx="216" cy="105" r="1.7" opacity=".7" />
+              <circle cx="505" cy="270" r="1.8" opacity=".72" />
+              <circle cx="114" cy="293" r="1.5" opacity=".62" />
+              <circle cx="452" cy="349" r="1.8" opacity=".7" />
+              <circle cx="174" cy="357" r="1.4" opacity=".6" />
+            </g>
+            <g fill="none" stroke="#f3e7df" stroke-linecap="round" opacity=".68">
+              <path d="M486 209v9m-4.5-4.5h9" />
+              <path d="M159 238v7m-3.5-3.5h7" />
+              <path d="M398 88v7m-3.5-3.5h7" />
+            </g>
+
+            <g class="orbit" fill="none" stroke="#e9c4ca" stroke-opacity=".35">
+              <ellipse cx="310" cy="275" rx="226" ry="104" transform="rotate(-27 310 275)" />
+            </g>
+            <g class="float">
+              <circle cx="494" cy="169" r="8" fill="#bba7f0" />
+              <circle cx="491" cy="166" r="2.5" fill="#f1e7ff" opacity=".8" />
+            </g>
+            <g class="float-delayed">
+              <circle cx="139" cy="355" r="5" fill="#f5b5a2" />
+            </g>
+
+            <circle cx="310" cy="244" r="105" fill="url(#sun)" />
+            <path
+              d="M206 263c29-7 58-10 87-10 42 0 81 5 119 14"
+              fill="none"
+              stroke="#fff0d9"
+              stroke-opacity=".28"
+              stroke-width="2"
+            />
+            <path
+              d="M224 284c29-5 58-7 87-7 35 0 67 3 98 9"
+              fill="none"
+              stroke="#fff0d9"
+              stroke-opacity=".18"
+              stroke-width="1.5"
+            />
+
+            <path
+              d="M81 376c47-3 72-37 116-38 58-2 68 51 129 51 51 0 77-41 119-40 38 1 60 26 94 32v91H81v-96Z"
+              fill="url(#hill-back)"
+            />
+            <path
+              d="M110 421c53-40 91-50 134-38 50 14 67 47 127 42 52-5 83-45 133-40 27 3 48 16 68 29v70H110v-63Z"
+              fill="url(#hill-front)"
+            />
+            <path
+              d="M110 421c53-40 91-50 134-38 50 14 67 47 127 42 52-5 83-45 133-40"
+              fill="none"
+              stroke="#c6a9dc"
+              stroke-opacity=".33"
+              stroke-width="1.5"
+            />
+            <path
+              d="M194 467c56-30 98-30 145-18 25 6 54 7 82-2"
+              fill="none"
+              stroke="#9e9abf"
+              stroke-opacity=".32"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+
+            <g class="float-delayed">
+              <path
+                d="M401 354c0-20 16-36 36-36s36 16 36 36v10h-72v-10Z"
+                fill="#d8c8ed"
+                fill-opacity=".92"
+              />
+              <path
+                d="M414 363v-9a23 23 0 0 1 46 0v9"
+                fill="none"
+                stroke="#f4e9f8"
+                stroke-opacity=".62"
+                stroke-width="2"
+              />
+              <path
+                d="M426 364v-10a11 11 0 0 1 22 0v10"
+                fill="none"
+                stroke="#f4e9f8"
+                stroke-opacity=".46"
+                stroke-width="2"
+              />
+              <circle cx="437" cy="360" r="4" fill="#ffb59d" />
+            </g>
+          </svg>
+        </div>
+      </main>
+
+      <footer class="bottom-note" aria-label="Page notes">
+        <span>Work in progress</span>
+        <span class="note-indicator">Something special is on the way</span>
+      </footer>
+    </div>
+  </body>
+</html>
